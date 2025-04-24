@@ -1,12 +1,16 @@
 package com.myproject.loginapp.entities;
 
 import jakarta.persistence.Entity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @jakarta.persistence.Table(name = "users")
-public class User {
+public class User implements UserDetails {
     @jakarta.persistence.Id
     @jakarta.persistence.GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
@@ -47,9 +51,21 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
     public String getPassword() {
         return password;
     }
+
+    @Override
+    public String getUsername() {
+        return "";
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
